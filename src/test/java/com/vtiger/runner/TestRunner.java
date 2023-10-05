@@ -2,6 +2,7 @@ package com.vtiger.runner;
 
 import org.junit.runner.RunWith;
 
+
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
@@ -14,7 +15,7 @@ import io.cucumber.junit.CucumberOptions;
 				"junit:target/cucumber-reports/Cucumber.xml",
 				"html:target/cucumber-reports.html"}
 		//,dryRun = true
-		,tags = "@invalid"
+		,tags = "@postcall"
 		
 		
 		

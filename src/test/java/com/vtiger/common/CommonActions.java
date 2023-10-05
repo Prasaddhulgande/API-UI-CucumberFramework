@@ -1,6 +1,7 @@
 package com.vtiger.common;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,27 +19,90 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentTest;
 
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
 public class CommonActions {
-	
-	private WebDriver driver;
-	private ExtentTest logger;
+	public WebDriverWait wait;
+	public WebDriver driver;
+	public ExtentTest logger;
 	
 	public CommonActions(WebDriver driver,ExtentTest logger)
 	{
 		this.driver = driver;
 		this.logger = logger;
+		if(driver!=null)
+		wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 	}
 	
 	
-	public void SetInput(WebElement elm, String data,String msg)
+	public void entervalue(WebElement elm, String value,String msg)
 	{
 		try
 		{
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOf(elm));
 		elm.clear();
-		elm.sendKeys(data);
+		elm.sendKeys(value);
 		logger.pass(msg);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			logger.fail("Step failed due to "+e.getMessage()+"<span class='label end-time'><a href="+getScreenshot()+">Screenshot</a></span>");
+		}
+	}
+	
+	public void writeAPIInfo( String endpoint,String req, String resp)
+	{
+		try
+		{
+		
+		logger.info("API Endpoint URL = "+endpoint);
+		logger.info("Request = "+req);
+		logger.info("Response = "+resp);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			logger.fail("Step failed due to "+e.getMessage()+"<span class='label end-time'><a href="+getScreenshot()+">Screenshot</a></span>");
+		}
+	}
+	
+	public void writeStatusLine( String expstatus,String actualStatus)
+	{
+		try
+		{
+		if(expstatus.equals(actualStatus))
+		{
+		logger.pass("Expected Status Line "+expstatus+" has been matched with actual status line "+actualStatus);
+		}
+		else
+		{
+			logger.fail("Expected Status Line "+expstatus+"did not match with actual status line "+actualStatus);
+		}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+			logger.fail("Step failed due to "+e.getMessage()+"<span class='label end-time'><a href="+getScreenshot()+">Screenshot</a></span>");
+		}
+	}
+	
+	public void writeValidation( Response resp, String expdata,String jpath)
+	{   
+		JsonPath json = resp.jsonPath();
+		String actualdata = json.getString(jpath);
+		try
+		{
+		if(expdata.equals(actualdata))
+		{
+		logger.pass("Expected data"+expdata+" has been matched with actual json data"+actualdata);
+		}
+		else
+		{
+			logger.fail("Expected data"+expdata+"did not match with actual json data"+actualdata);
+		}
 		}
 		catch(Exception e)
 		{

@@ -4,6 +4,7 @@ import com.vtiger.pages.HomePage;
 import com.vtiger.pages.LoginPage;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -26,6 +27,17 @@ public class loginSteps extends BaseTest {
 		extent.flush();
 	}
 	
+	@AfterAll
+	public static void tierdown()
+	{
+		if(driver!=null)
+		closeApp();
+	}
+	
+	private static void closeApp() {
+		// TODO Auto-generated method stub
+		
+	}
 	@Given("user should be on login page")
 	public void user_should_be_on_login_page() {
 		if(driver==null)
@@ -34,7 +46,7 @@ public class loginSteps extends BaseTest {
 	@When("user enters valid credentials and click on login button")
 	public void user_enters_valid_credentials_and_click_on_login_button() {
 		LoginPage lp = new LoginPage(driver,logger);
-		lp.login(alldata.get(vTCName).get("Userid"), alldata.get(vTCName).get("Password"));
+		lp.login(td.get(vTCName).get("Userid"), td.get(vTCName).get("Password"));
 		
 	}
 	@Then("user should be navigated to home page")
@@ -51,7 +63,7 @@ public class loginSteps extends BaseTest {
 	@When("user enters invalid credentials and click on login button")
 	public void user_enters_invalid_credentials_and_click_on_login_button() {
 		LoginPage lp = new LoginPage(driver,logger);
-		lp.login(alldata.get(vTCName).get("Userid"), alldata.get(vTCName).get("Password"));
+		lp.login(td.get(vTCName).get("Userid"), td.get(vTCName).get("Password"));
 	}
 	
 	@Then("user can see the error message on login page")
@@ -63,7 +75,7 @@ public class loginSteps extends BaseTest {
 	@Then("verify application title")
 	public void validateTitle() {
 		LoginPage lp = new LoginPage(driver,logger);
-		lp.verifyTitle(alldata.get(vTCName).get("ExpTitle"));
+		lp.verifyTitle(td.get(vTCName).get("ExpTitle"));
 	}
 	
 	@When("user enters userid as {string} and password as {string} click on login button")

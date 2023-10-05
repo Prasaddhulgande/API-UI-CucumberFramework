@@ -32,7 +32,8 @@ public class BaseTest {
 	
 public static WebDriver driver;
 public static Properties prop;
-public static Map<String,Map<String,String>> alldata;
+public static Map<String,Map<String,String>> td;
+public static Map<String,Map<String,String>> apitd;
 public static ExtentHtmlReporter htmlReporter;
 public static ExtentReports extent;
 public static ExtentTest logger;
@@ -44,8 +45,9 @@ public static String vTCName;
 		if(driver==null)
 		{
 		prop = readproperties();
-		alldata = readdata(System.getProperty("user.dir")+"/src/test/resources/TestData/data.xlsx", "Sheet1");
-		System.out.println(alldata);
+		td = readdata(System.getProperty("user.dir")+"/src/test/resources/TestData/data.xlsx", "Sheet1");
+		apitd = readdata(System.getProperty("user.dir")+"/src/test/resources/TestData/data.xlsx", "API_Data");
+		System.out.println(td);
 		createExtentReport();
 		}
 	}

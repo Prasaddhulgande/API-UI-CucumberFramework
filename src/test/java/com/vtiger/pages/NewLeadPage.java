@@ -1,5 +1,6 @@
 package com.vtiger.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,10 +21,10 @@ public class NewLeadPage extends CommonActions {
 	}
 	
 	@FindBy(name="firstname")
-	WebElement fname;
+	By fname;
 	
 	@FindBy(name="lastname")
-	WebElement lname;
+	By lname;
 	
 	@FindBy(name="company")
 	WebElement comp;
@@ -36,7 +37,7 @@ public class NewLeadPage extends CommonActions {
 	{
 		SetInput(fname, firstname, firstname+" has been entered into first name fields");
 		SetInput(lname, lastname, lastname+" has been entered into last name fields");
-		SetInput(comp, company, company+" has been entered into company fields");
+		SetInput((By) comp, company, company+" has been entered into company fields");
 		clickElement(save, "Save button clicked");
 	}
 		

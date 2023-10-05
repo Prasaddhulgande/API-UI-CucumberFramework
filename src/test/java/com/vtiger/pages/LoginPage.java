@@ -1,6 +1,7 @@
 package com.vtiger.pages;
 
 import java.time.Duration;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -26,10 +27,10 @@ public class LoginPage extends CommonActions {
 	}
 	
 	@FindBy(name="user_name")
-	WebElement userid;
+	By userid;
 	
 	@FindBy(name="user_password")
-	WebElement pwd;
+	By pwd;
 	
 	@FindBy(name="Login")
 	WebElement login;

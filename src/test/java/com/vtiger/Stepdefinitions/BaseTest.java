@@ -48,7 +48,10 @@ public static String vTCName;
 		td = readdata(System.getProperty("user.dir")+"/src/test/resources/TestData/data.xlsx", "Sheet1");
 		apitd = readdata(System.getProperty("user.dir")+"/src/test/resources/TestData/data.xlsx", "API_Data");
 		System.out.println(td);
+		if(htmlReporter==null)
+		{
 		createExtentReport();
+		}
 		}
 	}
 	

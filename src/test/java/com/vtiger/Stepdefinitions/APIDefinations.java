@@ -113,6 +113,7 @@ if(apitd.get(vTCName).get("Method").equalsIgnoreCase("POST"))
 			String jsonpath = str[0].trim();
 			String expData = str[1].trim();
 			 cm.writeValidation(resp, expData, jsonpath);
+			 System.out.println("example lets check git");
 		}
 		}
 		
